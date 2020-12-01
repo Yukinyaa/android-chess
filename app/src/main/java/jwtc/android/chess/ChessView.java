@@ -873,13 +873,19 @@ public class ChessView extends UI {
         }
 
         _view.paintBoard(_jni, arrSelPositions, arrPos);
-
+        //todo: dotmatrix here!
+        writeDmtrix(0);
         if (_layoutHistory != null) {
             for (int i = 0; i < _layoutHistory.getChildCount(); i++) {
                 _arrPGNView.get(i).setSelected(i == _jni.getNumBoard() - 2);
             }
         }
     }
+    static {
+        System.loadLibrary("FPGA-lib");
+    }
+    public native int writeDmtrix(int data); /// Java_jwtc_android_chess_writeDmtrix
+
 
     public int getPlayMode() {
         return _playMode;
@@ -1253,7 +1259,6 @@ public class ChessView extends UI {
         /////////////////////////////////////////////////////////////////
         _bDidResume = true;
     }
-
 
     @Override
     public void updateState() {

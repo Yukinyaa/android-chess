@@ -3,9 +3,13 @@
 #include "HJW.h"
 
 
-//*************************//
-//* please check:
-//* insmod /sdcard/<name>.ko
-//* chmod 666 /dev/<name>
-//* setenforce 0
-//*************************//
+//*******************************************//
+// checklist if not working:
+//
+// at java class file
+//   static {system.LoadLibrary("FPGA-lib")}
+// at device:
+//   insmod /sdcard/<name>.ko
+//   chmod 666 /dev/<name>
+//   setenforce 0
+//******************************************//

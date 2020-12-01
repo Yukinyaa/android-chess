@@ -15,4 +15,12 @@
 #include <android/log.h>
 #include <errno.h>
 
+
+static const int PAWN = 0;
+static const int KNIGHT = 1;
+static const int BISHOP = 2;
+static const int ROOK = 3;
+static const int QUEEN = 4;
+static const int KING = 5;
+
 #endif //ANDROID_CHESS_COMMON_HEADERS_H

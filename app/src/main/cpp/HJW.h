@@ -23,8 +23,9 @@ const char king[10] =
         0b1111111
 };
 
+
 extern "C" JNIEXPORT jint JNICALL
-Java_jwtc_android_chess_ChessView_writeDmtrix( JNIEnv* env, jobject thiz , jint data)
+Java_jwtc_android_chess_ChessView_writeDmtrix( JNIEnv* env, jobject thiz , jint piece, jint bw)
 {
     int dotmfd = open("/dev/dotmatrix", O_RDWR);
     int err = errno;
@@ -32,8 +33,8 @@ Java_jwtc_android_chess_ChessView_writeDmtrix( JNIEnv* env, jobject thiz , jint 
         __android_log_print(ANDROID_LOG_ERROR, "SSegmentWrite", "err opening dotm device, errno: %d\n", err);
         return 1;
     }
-
-    write(dotmfd, king, 10); //testing write to device
+    unsigned char piecechar = (unsigned char)piece;
+    write(dotmfd, &piecechar, 1); //testing write to device
     close(dotmfd);
 
     return 0;

@@ -873,7 +873,8 @@ public class ChessView extends UI {
         }
 
         _view.paintBoard(_jni, arrSelPositions, arrPos);
-        //todo: dotmatrix here!
+
+        // dotmatrix here!
         int lastmove = _jni.getMove();
         int lastmoveto =  Move.getTo(lastMove);
         int lastmovepiece = _jni.pieceAt(ChessBoard.WHITE, lastmoveto);
@@ -883,7 +884,11 @@ public class ChessView extends UI {
             lastmovepiece = _jni.pieceAt(ChessBoard.BLACK, lastmoveto);
             pieceWB = ChessBoard.BLACK;
         }
+        if(BoardConstants.FIELD == lastmovepiece)
+            lastmovepiece = 9;
         writeDmtrix(lastmovepiece, pieceWB);
+        //end of dotmatrix
+
         if (_layoutHistory != null) {
             for (int i = 0; i < _layoutHistory.getChildCount(); i++) {
                 _arrPGNView.get(i).setSelected(i == _jni.getNumBoard() - 2);

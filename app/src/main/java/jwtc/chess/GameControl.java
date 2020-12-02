@@ -25,6 +25,7 @@ import jwtc.chess.board.BoardConstants;
 
 public class GameControl
 {
+	public int evenOdd = 0; /////////////////////////////////////////////////////////here evenOdd for turn check (bl/wh)
 	// active - is control allowed
 	protected boolean m_bActive;
 	protected int m_iLevelMode;
@@ -138,13 +139,24 @@ try{
 	public String getOpeningDbFileName(){
 		return _openingDbFileName;
 	}
-	
-	public void enableControl()
+
+	static {
+		System.loadLibrary("TURN");
+
+	}////////////////////////////////////////////////////////////////////////////here needed to modify
+	public native int showTurn(int data);
+
+	public void enableControl()////send data to cpp and change led everytime when it is called
 	{
-		m_bActive = true;	
+		showTurn(evenOdd);
+		evenOdd ++; // update for next turn
+		m_bActive = true;
 	}
+
 	public void disableControl()
 	{
+		showTurn(evenOdd);
+		evenOdd ++; // update for next turn
 		m_bActive = false;	
 	}
 	// returns true when GUI input is allowed or is active

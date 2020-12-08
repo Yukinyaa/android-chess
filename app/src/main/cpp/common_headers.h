@@ -14,6 +14,8 @@
 #include <sys/ioctl.h>
 #include <android/log.h>
 #include <errno.h>
+#include <pthread.h>
+#include <time.h>
 
 
 static const int PAWN = 0;

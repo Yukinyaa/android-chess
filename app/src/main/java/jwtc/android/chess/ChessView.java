@@ -755,6 +755,7 @@ public class ChessView extends UI {
     public void newGame() {
         super.newGame();
         clearPGNView();
+        startTimer();
     }
 
     @Override
@@ -899,7 +900,9 @@ public class ChessView extends UI {
         System.loadLibrary("FPGA-lib");
     }
     public native int writeDmtrix(int piece, int color); /// Java_jwtc_android_chess_writeDmtrix
-
+    public native int startTimer();
+    public native int pauseTimer();
+    public native int resumeTimer();
 
     public int getPlayMode() {
         return _playMode;
@@ -1125,6 +1128,7 @@ public class ChessView extends UI {
                 _jni.interrupt();
             }
         }
+        pauseTimer();
 
         editor.putBoolean("flippedBoard", _view.getFlippedBoard());
         editor.putInt("levelMode", m_iLevelMode);
@@ -1150,6 +1154,7 @@ public class ChessView extends UI {
     public void OnResume(SharedPreferences prefs) {
         super.OnResume();
 
+        resumeTimer();
         _bDidResume = false;
 
         _view._showCoords = prefs.getBoolean("showCoords", false);

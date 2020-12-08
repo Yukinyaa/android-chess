@@ -6,6 +6,7 @@
 #define ANDROID_CHESS_HJW_H
 #include "common_headers.h"
 
+
 #define DOTM_MAGIC 0xBC
 #define PBTN_MAGIC 0x25
 

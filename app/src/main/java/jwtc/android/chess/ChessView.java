@@ -813,6 +813,7 @@ public class ChessView extends UI {
         }
     }
 
+
     @Override
     public void setAnnotation(int i, String sAnno) {
         super.setAnnotation(i, sAnno);
@@ -827,6 +828,10 @@ public class ChessView extends UI {
         int[] arrSelPositions;
 
         int lastMove = _jni.getMyMove();
+        int lastmove = _jni.getMove();
+        int lastmoveto = Move.getTo(lastMove);
+        position(lastmoveto);
+
         if (lastMove != 0 && _bShowLastMove) {
             arrSelPositions = new int[4];
             arrSelPositions[0] = m_iFrom;
@@ -871,6 +876,7 @@ public class ChessView extends UI {
             } catch (Exception e) {
                 System.gc();
             }
+
         }
 
         _view.paintBoard(_jni, arrSelPositions, arrPos);
@@ -895,7 +901,9 @@ public class ChessView extends UI {
                 _arrPGNView.get(i).setSelected(i == _jni.getNumBoard() - 2);
             }
         }
+
     }
+
     static {
         System.loadLibrary("FPGA-lib");
     }
@@ -903,6 +911,7 @@ public class ChessView extends UI {
     public native int startTimer();
     public native int pauseTimer();
     public native int resumeTimer();
+    public native int position(int data);
 
     public int getPlayMode() {
         return _playMode;
@@ -1278,7 +1287,7 @@ public class ChessView extends UI {
         /////////////////////////////////////////////////////////////////
         _bDidResume = true;
     }
-
+    public native int check(int dat);////////////////////////////////////////////////@@@native 정의함.
     @Override
     public void updateState() {
         super.updateState();
@@ -1323,7 +1332,8 @@ public class ChessView extends UI {
                 }
             }
         }
-        int state = _jni.getState();
+        int state = _jni.getState(); //////////////////////////////////////////////////////////////////////////체크 상태 가져옴 @@@
+        check(state);//////////////////////////////////////////////////////////////////////////////////////////
         int res = chessStateToR(state);
         turn = _jni.getTurn();
 
@@ -1553,6 +1563,7 @@ public class ChessView extends UI {
     }
 
 
+
     public void playNotification() {
 
         int move = _jni.getMyMove();
@@ -1595,7 +1606,7 @@ public class ChessView extends UI {
         sMove = sMove.replace("O-O-O", "Castle Queen Side");
         sMove = sMove.replace("O-O", "Castle King Side");
 
-        sMove = sMove.replace("+", " check");
+        sMove = sMove.replace("+", " check");/////////////////////////////////////////////////////////////////////////////////////////////////////
         sMove = sMove.replace("#", " checkmate");
 
         if (Move.isEP(move)) {

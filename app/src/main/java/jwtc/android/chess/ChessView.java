@@ -882,8 +882,6 @@ public class ChessView extends UI {
         _view.paintBoard(_jni, arrSelPositions, arrPos);
 
         // dotmatrix here!
-        int lastmove = _jni.getMove();
-        int lastmoveto =  Move.getTo(lastMove);
         int lastmovepiece = _jni.pieceAt(ChessBoard.WHITE, lastmoveto);
         int pieceWB = ChessBoard.WHITE;
         if(BoardConstants.FIELD == lastmovepiece)
